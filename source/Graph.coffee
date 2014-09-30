@@ -137,6 +137,8 @@ class Graph
     if not fromNode or not toNode then return
     edgeToAdd =
       weight: weight
+      fromId: fromId
+      toId: toId
     fromNode._outEdges[toId] = edgeToAdd
     toNode._inEdges[fromId] = edgeToAdd
     @edgeSize++
