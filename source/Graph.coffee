@@ -67,6 +67,10 @@ class Graph
         # attributes to be attached. Same applies to inEdges.
         _outEdges: {}
         _inEdges: {}
+        # Nodes have integer labels, distinct from their internal `id`, which
+        # will be updated whenever nodes are removed so that labels are always
+        # consecutive integers from 0 to N-1.
+        label: @nodeSize - 1
 
   getNode: (id) ->
     ###
@@ -89,6 +93,11 @@ class Graph
         @removeEdge inEdgeId, id
       @nodeSize--
       delete @_nodes[id]
+      # Decrement the labels that are greater than the removed node's label so
+      # that labels are always consecutive integers from 0 to N-1.
+      for id, node of @_nodes
+        if node.label > nodeToRemove.label
+          node.label--
     return nodeToRemove
 
   addEdge: (fromId, toId, weight = 1) ->
