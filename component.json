@@ -17,5 +17,22 @@
         "grunt-contrib-uglify": "~0.2.0",
         "grunt-coffeelint": "0.0.6"
     }
-  }
+  },
+  "keywords": [
+    "data structure",
+    "linked list",
+    "list",
+    "bst",
+    "binary search tree",
+    "red black tree",
+    "tree",
+    "graph",
+    "edge",
+    "queue",
+    "map",
+    "hash",
+    "heap",
+    "trie"
+  ],
+  "license": "MIT"
 }
