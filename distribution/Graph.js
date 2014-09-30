@@ -50,7 +50,7 @@ graph.removeEdge('A', 'B'); // => the edge object removed
       this.edgeSize = 0;
     }
 
-    Graph.prototype.addNode = function(id) {
+    Graph.prototype.addNode = function(id, state) {
       /*
       The `id` is a unique identifier for the node, and should **not** change
       after it's added. It will be used for adding, retrieving and deleting
@@ -69,7 +69,9 @@ graph.removeEdge('A', 'B'); // => the edge object removed
         this.nodeSize++;
         return this._nodes[id] = {
           _outEdges: {},
-          _inEdges: {}
+          _inEdges: {},
+          label: this.nodeSize - 1,
+          state: state
         };
       }
     };
@@ -89,7 +91,7 @@ graph.removeEdge('A', 'B'); // => the edge object removed
       first place.
       */
 
-      var inEdgeId, nodeToRemove, outEdgeId, _ref, _ref1;
+      var inEdgeId, node, nodeToRemove, outEdgeId, _ref, _ref1, _ref2;
       nodeToRemove = this._nodes[id];
       if (!nodeToRemove) {
         return;
@@ -106,8 +108,40 @@ graph.removeEdge('A', 'B'); // => the edge object removed
         }
         this.nodeSize--;
         delete this._nodes[id];
+        _ref2 = this._nodes;
+        for (id in _ref2) {
+          node = _ref2[id];
+          if (node.label > nodeToRemove.label) {
+            node.label--;
+          }
+        }
       }
       return nodeToRemove;
+    };
+
+    Graph.prototype.getNodeState = function(id) {
+      /*
+      _Returns:_ the state of the given node, or undefined if the node doesn't
+      exist.
+      */
+
+      return this.getNode(id).state;
+    };
+
+    Graph.prototype.setNodeState = function(id, newState) {
+      /*
+      _Returns:_ the state that was just set, or undefined if the node doesn't
+      exist.
+      exist in the first place.
+      */
+
+      var node;
+      node = this.getNode(id);
+      if (!node) {
+        return;
+      }
+      node.state = newState;
+      return node.state;
     };
 
     Graph.prototype.addEdge = function(fromId, toId, weight) {
@@ -136,7 +170,9 @@ graph.removeEdge('A', 'B'); // => the edge object removed
         return;
       }
       edgeToAdd = {
-        weight: weight
+        weight: weight,
+        fromId: fromId,
+        toId: toId
       };
       fromNode._outEdges[toId] = edgeToAdd;
       toNode._inEdges[fromId] = edgeToAdd;
