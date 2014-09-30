@@ -101,6 +101,24 @@ class Graph
           node.label--
     return nodeToRemove
 
+  getNodeState: (id) ->
+    ###
+    _Returns:_ the state of the given node, or undefined if the node doesn't
+    exist.
+    ###
+    return @getNode(id).state
+
+  setNodeState: (id, newState) ->
+    ###
+    _Returns:_ the state that was just set, or undefined if the node doesn't
+    exist.
+    exist in the first place.
+    ###
+    node = @getNode(id)
+    if not node then return
+    node.state = newState
+    return node.state
+
   addEdge: (fromId, toId, weight = 1) ->
     ###
     `fromId` and `toId` are the node id specified when it was created using
