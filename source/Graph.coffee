@@ -43,7 +43,7 @@ class Graph
     @nodeSize = 0
     @edgeSize = 0
 
-  addNode: (id) ->
+  addNode: (id, state) ->
     ###
     The `id` is a unique identifier for the node, and should **not** change
     after it's added. It will be used for adding, retrieving and deleting
@@ -71,6 +71,7 @@ class Graph
         # will be updated whenever nodes are removed so that labels are always
         # consecutive integers from 0 to N-1.
         label: @nodeSize - 1
+        state: state
 
   getNode: (id) ->
     ###
