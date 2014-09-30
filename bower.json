@@ -1,9 +1,9 @@
 {
   "name": "data-structures",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "author": "chenglou <chenglou92@gmail.com>",
   "description": "JavaScript data structures written in CoffeeScript.",
-  "main": "./distribution/browser/data-structures-1.4.2.js",
+  "main": "./distribution/browser/data-structures-1.4.3.js",
   "ignore": [
     "**/.*",
     "node_modules",
